@@ -12,5 +12,9 @@
     "parcel": "^2.16.0",
     "saas": "^1.0.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "uuid": "^13.0.0"
   }
 }

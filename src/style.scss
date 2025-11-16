@@ -1,3 +1,49 @@
-body {
-  background-color: green;
-}s
+@use 'bootstrap/dist/css/bootstrap.min.css';
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.task-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: 1.2rem;
+    color: black;
+    font-weight: bold;
+  }
+}
+
+.task-input {
+  background-color: transparent;
+  border: none;
+  padding: 0 10px;
+
+  &:focus {
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
+
+.task-input.done {
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.task-component-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
