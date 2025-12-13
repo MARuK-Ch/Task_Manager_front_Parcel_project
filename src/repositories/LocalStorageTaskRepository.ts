@@ -6,11 +6,6 @@ export default class LocalStorageTaskRepository implements TaskRepositoryInterfa
     constructor() {
     }
 
-    get(id: string) {
-        const tasks = this.getParsedTasks()
-        return tasks.find(task => task.id === id)
-    }
-
     getAll(): Task[] {
         return this.getParsedTasks()
     }

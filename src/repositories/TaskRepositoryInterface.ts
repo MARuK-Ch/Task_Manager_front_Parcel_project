@@ -5,7 +5,6 @@ export interface UpdateTaskPayLoad {
 }
 
 export interface TaskRepositoryInterface {
-    get(id: string): Task | undefined
     getAll(): Task[]
     getCurrentTasks(): Task[]
     getDoneTasks(): Task[]
@@ -13,4 +12,14 @@ export interface TaskRepositoryInterface {
     remove(id: string): void
     updateTitle(id: string, updateTaskPayLoad: UpdateTaskPayLoad): void
     updateStatus(id: string, newStatus: boolean): void
+}
+
+export interface MongoDBTaskRepositoryInterface {
+    getAll(): Promise<Task[]>
+    getCurrentTasks(): Promise<Task[]>
+    getDoneTasks(): Promise<Task[]>
+    add(title: string): Promise<void>
+    remove(id: string): Promise<void>
+    updateTitle(id: string, newTitle: string): Promise<void>
+    updateStatus(id: string, newStatus: boolean): Promise<void>
 }

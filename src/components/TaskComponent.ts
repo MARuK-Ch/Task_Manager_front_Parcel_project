@@ -15,6 +15,7 @@ export default function TaskComponent({ title, isDone, deleteTask, updateTask, u
         deleteTask()
     })
 
+    // Кнопка изменить
     const approveChangesBtn: HTMLButtonElement = document.createElement('button')
     approveChangesBtn.className = 'btn btn-light hidden'
     approveChangesBtn.innerText = 'Change'
@@ -41,7 +42,7 @@ export default function TaskComponent({ title, isDone, deleteTask, updateTask, u
                 input.readOnly = true
                 approveChangesBtn.classList.add('hidden')
                 deleteBtn.classList.remove('hidden')
-            }, 199)
+            }, 300)
         })
     }
 
