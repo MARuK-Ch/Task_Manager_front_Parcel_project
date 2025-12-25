@@ -1,76 +1,85 @@
-interface TaskComponenetArgs {
-    title: string
-    isDone: boolean
-    deleteTask: () => void
-    updateTask: (newTitle: string) => void
-    updateStatus: (newStatus: boolean) => void
+// View/Component - заготовки/куски интерфейса
+interface TaskComponentArgs {
+  title: string
+  isDone: boolean
+  deleteTask: () => void
+  updateTask: (newTitle: string) => void
+  updateStatus: (newStatus: boolean) => void
 }
 
-export default function TaskComponent({ title, isDone, deleteTask, updateTask, updateStatus }: TaskComponenetArgs): HTMLDivElement {
-    const deleteBtn: HTMLButtonElement = document.createElement('button')
-    deleteBtn.className = 'btn btn-danger'
-    deleteBtn.type = 'button'
-    deleteBtn.innerHTML = 'Delete'
-    deleteBtn.addEventListener('click', () => {
-        deleteTask()
+export default function TaskComponent({ title, isDone, updateTask, deleteTask, updateStatus }: TaskComponentArgs): HTMLDivElement {
+  // deleteTask = () => this.deleteTask(task.id)
+  // Кнопка удалить
+  const deleteBtn = document.createElement('button')
+  deleteBtn.className = 'btn btn-danger'
+  deleteBtn.type = 'button'
+  deleteBtn.innerHTML = 'Удалить'
+  deleteBtn.addEventListener('click', () => {
+    deleteTask()
+  })
+
+  // Кнопка изменить
+  const approveChangesBtn = document.createElement('button')
+  approveChangesBtn.className = 'btn btn-primary hidden'
+  approveChangesBtn.innerText = 'Изменить'
+  approveChangesBtn.addEventListener('click', () => {
+    updateTask(input.value)
+  })
+
+  // Основной див alert
+  const alertDiv = document.createElement('div')
+  alertDiv.className = `alert alert-${isDone ? 'success' : 'dark'} task-component`
+  alertDiv.role = 'alert'
+
+  // Input с названием
+  const input = document.createElement('input')
+  input.className = `task-input ${isDone ? 'done' : ''}`
+  input.value = title
+  input.readOnly = true
+  if (!isDone) {
+    input.addEventListener('focus', () => {
+      input.readOnly = false
+      approveChangesBtn.classList.remove('hidden')
+      deleteBtn.classList.add('hidden')
     })
-
-    // Кнопка изменить
-    const approveChangesBtn: HTMLButtonElement = document.createElement('button')
-    approveChangesBtn.className = 'btn btn-light hidden'
-    approveChangesBtn.innerText = 'Change'
-    approveChangesBtn.addEventListener('click', () => {
-        updateTask(input.value)
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        input.readOnly = true
+        approveChangesBtn.classList.add('hidden')
+        deleteBtn.classList.remove('hidden')
+      },100)
     })
+  }
 
-    const alertDiv: HTMLDivElement = document.createElement('div')
-    alertDiv.className = `alert alert-${isDone ? 'success' : 'info'} task-component`
-    alertDiv.role = 'alert'
+  // makeDoneBtn
+  const makeDoneBtn = document.createElement('button')
+  makeDoneBtn.className = 'btn btn-success'
+  makeDoneBtn.innerText = 'Выполнить'
+  makeDoneBtn.addEventListener('click', () => {
+    updateStatus(true)
+  })
 
-    const input = document.createElement('input')
-    input.className = `task-input ${isDone ? 'done' : ''}`
-    input.value = title
-    input.readOnly = true
-    if (!isDone) {
-        input.addEventListener('focus', () => {
-            input.readOnly = false
-            approveChangesBtn.classList.remove('hidden')
-            deleteBtn.classList.add('hidden')
-        })
-        input.addEventListener('blur', () => {
-            setTimeout(() => {
-                input.readOnly = true
-                approveChangesBtn.classList.add('hidden')
-                deleteBtn.classList.remove('hidden')
-            }, 300)
-        })
-    }
+  // return btn
+  const returnBtn = document.createElement('button')
+  returnBtn.className = 'btn btn-warning'
+  returnBtn.innerText = 'Вернуть'
+  returnBtn.addEventListener('click', () => {
+    updateStatus(false)
+  })
 
-    const makeDoneBtn = document.createElement('button')
-    makeDoneBtn.className = 'btn btn-success'
-    makeDoneBtn.innerText = 'Done'
-    makeDoneBtn.addEventListener('click', () => {
-        updateStatus(true)
-    })
+  const buttonsContainer = document.createElement('div')
+  buttonsContainer.className = 'task-component-buttons-container'
 
-    const returnDoneBtn = document.createElement('button')
-    returnDoneBtn.className = 'btn btn-warning'
-    returnDoneBtn.innerText = 'Return'
-    returnDoneBtn.addEventListener('click', () => {
-        updateStatus(false)
-    })
+  buttonsContainer.appendChild(approveChangesBtn)
+  if (!isDone) {
+    buttonsContainer.appendChild(makeDoneBtn)
+  }
+  else {
+    buttonsContainer.appendChild(returnBtn)
+  }
+  buttonsContainer.appendChild(deleteBtn)
 
-    const buttonsContainer = document.createElement('div')
-    buttonsContainer.className = 'task-component-buttons-container'
-    if (!isDone) {
-        buttonsContainer.appendChild(approveChangesBtn)
-        buttonsContainer.appendChild(makeDoneBtn)
-    } else {
-        buttonsContainer.append(returnDoneBtn)
-    }
-    buttonsContainer.append(deleteBtn)
+  alertDiv.append(input, buttonsContainer)
 
-    alertDiv.append(input, buttonsContainer)
-
-    return alertDiv
+  return alertDiv
 }

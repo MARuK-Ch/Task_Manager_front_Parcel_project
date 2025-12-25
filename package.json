@@ -1,23 +1,27 @@
 {
-  "name": "task_manager_express_js",
+  "name": "parcel_project",
   "version": "1.0.0",
   "scripts": {
-    "dev": "parcel src/index.html --port 3000",
-    "build": "parcel build src/index.html"
+    "dev": "parcel src/pages/*.html --port 3000",
+    "build": "parcel build src/pages/*.html"
   },
   "author": "",
   "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.16.0",
-    "@types/node": "^25.0.1",
+    "@types/node": "^24.9.1",
+    "@types/toastify-js": "^1.12.4",
+    "baseline-browser-mapping": "^2.9.11",
     "buffer": "^6.0.3",
     "parcel": "^2.16.0",
-    "saas": "^1.0.0",
-    "typescript": "^5.9.3"
+    "sass": "^1.93.2",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
-    "axios": "^1.13.2",
+    "axios": "^1.12.2",
     "bootstrap": "^5.3.8",
+    "toastify-js": "^1.12.0",
     "uuid": "^13.0.0"
   }
 }
